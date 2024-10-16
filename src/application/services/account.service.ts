@@ -23,23 +23,23 @@ export class AccountService {
     const user = await this.userRepository.create({
       email: createAccountDto.email,
       name: createAccountDto.name,
+      password: createAccountDto.password,
       id: uuidv4(),
     });
     await this.userRepository.save(user);
 
-    // Cria a entidade Account
     const account = await this.accountRepository.create({
-      password: createAccountDto.password,
       user: user,
       id: uuidv4(),
+      userId: user.id,
+      createdAt: new Date(),
     });
     await this.accountRepository.save(account);
-    user.account = account; // Relaciona o user com a account
-    await this.userRepository.save(user); // Atualiza o user com a nova relação
-
+    user.account = account; 
+    await this.userRepository.save(user); 
     return {
       id: account.id,
-      password: account.password,
+      password: user.password,
       email: user.email,
       name: user.name,
     };

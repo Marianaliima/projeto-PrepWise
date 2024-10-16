@@ -13,6 +13,9 @@ export class UserEntity {
   @Column()
   name: string;
 
+  @Column()
+  password: string;
+
   @OneToOne(() => AccountEntity, (account) => account.user)
   @Exclude() 
   account: AccountEntity;

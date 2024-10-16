@@ -19,7 +19,7 @@ import { UserModule } from './application/modules/user.module';
         username: 'postgres',
         password: process.env.DB_PASSWORD,
         database: 'postgres',
-        synchronize: true,
+        synchronize: false,
         logging: false,
         entities: [AccountEntity, UserEntity],
       }),

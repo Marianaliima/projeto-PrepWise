@@ -42,6 +42,7 @@ export class UserService {
       id: user.id,
       email: user.email,
       name: user.name,
+      password: user.password,
     };
   }
 
@@ -58,6 +59,7 @@ export class UserService {
       id: user.id,
       email: user.email,
       name: user.name,
+      password: user.password,
     };
   }
 
@@ -74,6 +76,7 @@ export class UserService {
       id: user.id,
       email: user.email,
       name: user.name,
+      password: user.password,
     };
   }
 
@@ -86,7 +89,6 @@ export class UserService {
 
       await this.userRepository.remove(user.id);
     } catch (error) {
-      // Verifica se o erro é uma violação de chave estrangeira
       if (error instanceof QueryFailedError) {
         throw new BadRequestException(
           'Delete sua conta primeiro e assim seu usuário será deletado automaticamente.',
@@ -104,6 +106,7 @@ export class UserService {
       id: user.id,
       email: user.email,
       name: user.name,
+      password: user.password,
     }));
   }
 }
