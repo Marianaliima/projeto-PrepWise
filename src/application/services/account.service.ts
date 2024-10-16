@@ -1,25 +1,47 @@
-import { Injectable } from '@nestjs/common';
-import { AccountRepository } from '../ports/account-abs.repository';
+import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
-
+import { CreateAccountDto } from 'src/interfaces/dtos/create-account.dto';
+import { AccountORMRepository } from '../ports/account.repository';
+import { UserORMRepository } from '../ports/user.respository';
 
 @Injectable()
 export class AccountService {
+  constructor(
+    @Inject('AccountRepository')
+    private readonly accountRepository: AccountORMRepository,
+    @Inject('UserRepository')
+    private readonly userRepository: UserORMRepository,
+  ) {}
+  async createAccount(createAccountDto: CreateAccountDto) {
+    const existingUser = await this.userRepository.findByEmail(
+      createAccountDto.email,
+    );
 
-    constructor(private readonly accountRepository: AccountRepository){}
-createAccount(
-    login: string,
-    password: string
-) {
-   return this.accountRepository.save(
-       {
-           login,
-           password,
-           id: uuidv4()
-       }
-    )
+    if (existingUser) {
+      throw new ConflictException('Esse email já está cadastrado.');
+    }
+    const user = await this.userRepository.create({
+      email: createAccountDto.email,
+      name: createAccountDto.name,
+      id: uuidv4(),
+    });
+    await this.userRepository.save(user);
 
-}
+    // Cria a entidade Account
+    const account = await this.accountRepository.create({
+      password: createAccountDto.password,
+      user: user,
+      id: uuidv4(),
+    });
+    await this.accountRepository.save(account);
+    user.account = account; // Relaciona o user com a account
+    await this.userRepository.save(user); // Atualiza o user com a nova relação
 
-
+    return {
+      id: account.id,
+      password: account.password,
+      email: user.email,
+      name: user.name,
+    };
+  }
 }
