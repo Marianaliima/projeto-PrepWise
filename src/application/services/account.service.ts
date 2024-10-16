@@ -1,8 +1,10 @@
-import { ConflictException, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, ConflictException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 import { CreateAccountDto } from 'src/interfaces/dtos/create-account.dto';
 import { AccountORMRepository } from '../ports/account.repository';
 import { UserORMRepository } from '../ports/user.respository';
+import { QueryFailedError } from 'typeorm';
+import { AccountDto } from 'src/interfaces/dtos/account.dto';
 
 @Injectable()
 export class AccountService {
@@ -44,4 +46,27 @@ export class AccountService {
       name: user.name,
     };
   }
+  async getAllAccounts(): Promise<AccountDto[]> {
+    const accounts = await this.accountRepository.findAll();
+    return accounts.map((account) => ({
+      id: account.id,
+    }));
+  }
+  async deleteAccount(id: string): Promise<void> {
+    try {
+      const account = await this.accountRepository.findOne(id);
+
+    
+      if (!account) {
+        throw new NotFoundException('Usuário não encontrado.');
+      }
+     
+      await this.accountRepository.remove(account.id);
+
+    } catch (error) {
+      throw new BadRequestException(
+        'Ocorreu um erro inesperado. Tente novamente.',
+      );
+    }
+}
 }
