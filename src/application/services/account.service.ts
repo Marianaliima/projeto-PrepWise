@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { CreateAccountDto } from 'src/interfaces/dtos/create-account.dto';
 import { AccountORMRepository } from '../ports/account.repository';
 import { UserORMRepository } from '../ports/user.respository';
-import { QueryFailedError } from 'typeorm';
 import { AccountDto } from 'src/interfaces/dtos/account.dto';
 
 @Injectable()

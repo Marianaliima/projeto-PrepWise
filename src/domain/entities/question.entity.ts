@@ -1,7 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('questions') 
-
-export class QuestionEntity { @PrimaryGeneratedColumn('uuid')
-     id: string; @Column() description: string; @Column() topic: string;
+@Entity('questions')
+export class QuestionEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+  @Column()
+  description: string;
+  @Column() topic: string;
 }
