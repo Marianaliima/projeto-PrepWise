@@ -1,4 +1,3 @@
-// src/interfaces/dtos/user.dto.ts
 import { Expose } from 'class-transformer';
 
 export class UserDto {
