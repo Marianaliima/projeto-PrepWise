@@ -7,6 +7,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AccountEntity } from './domain/entities/account.entity';
 import { UserEntity } from './domain/entities/user.entity';
 import { UserModule } from './application/modules/user.module';
+import { QuestionModule } from './application/modules/question.module';
+import { QuestionEntity } from './domain/entities/question.entity';
 
 @Module({
   imports: [
@@ -21,11 +23,13 @@ import { UserModule } from './application/modules/user.module';
         database: 'postgres',
         synchronize: true,
         logging: false,
-        entities: [AccountEntity, UserEntity],
+        entities: [AccountEntity, UserEntity, QuestionEntity],
       }),
     }),
     AccountModule,
     UserModule,
+
+    QuestionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
