@@ -23,6 +23,9 @@ export class UserService {
   ) {}
 
   async createUser(createUserDto: CreateUserDto): Promise<UserDto> {
+    if (!createUserDto.password) {
+      throw new BadRequestException('O campo "password" é obrigatório.');
+  }
     const existingUser = await this.userRepository.findByEmail(
       createUserDto.email,
     );
