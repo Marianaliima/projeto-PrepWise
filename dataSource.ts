@@ -5,14 +5,14 @@ import { UserEntity } from './src/domain/entities/user.entity';
 import { DataSource } from 'typeorm';
 
 export const AppDataSource = new DataSource({
-  type: 'postgres', // ou o tipo de banco que você estiver usando
+  type: 'postgres', 
   host: 'localhost',
   port: 5432,
   username: 'postgres',
-  password: 'Be@triz1',
+  password: String(process.env.DB_PASSWORD),
   database: 'postgres',
-  synchronize: false, // geralmente false em produção
+  synchronize: false,
   logging: true,
-  entities: [UserEntity, QuestionEntity, PracticeEntity, AccountEntity], // adicione suas entidades aqui
+  entities: [UserEntity, QuestionEntity, PracticeEntity, AccountEntity], 
   migrations: ['src/migration/**/*.ts'],
 });

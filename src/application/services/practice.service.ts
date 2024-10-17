@@ -4,12 +4,14 @@ import { PracticeEntity } from 'src/domain/entities/Practice.entity';
 import { CreatePracticeDto } from 'src/interfaces/dtos/practice.dto';
 import { QuestionORMRepository } from '../ports/question.repository';
 import { v4 as uuidv4 } from 'uuid';
+import { GeminiService } from './gemini.service';
 
 @Injectable()
 export class PracticeService {
   constructor(
     @Inject('PracticeRepository')
     private readonly practiceRepository: PracticeORMRepository,
+    private readonly geminiService: GeminiService,
 
     @Inject('QuestionRepository')
     private readonly questionRepository: QuestionORMRepository,
@@ -30,7 +32,22 @@ export class PracticeService {
       question: question,
       status: 'Pending',
     });
-    return await this.practiceRepository.save(practice);
+    await this.practiceRepository.save(practice);
+    try {
+      const promptResponse = await this.geminiService.processPrompt(
+        question?.description,
+        practiceData?.solution,
+      );
+      practice.status = 'processed';
+      practice.feedback = promptResponse; 
+      await this.practiceRepository.save(practice);
+    } catch (error) {
+      console.error('Erro ao processar o prompt:', error);
+      practice.status = 'error'; 
+      await this.practiceRepository.save(practice);
+    }
+
+    return practice;
   }
 
   async findAllPractices(): Promise<PracticeEntity[]> {

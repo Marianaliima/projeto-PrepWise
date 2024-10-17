@@ -11,6 +11,9 @@ import { QuestionEntity } from './domain/entities/question.entity';
 import { QuestionModule } from './application/modules/question.module';
 import { PracticeModule } from './application/modules/practice.module';
 import { PracticeEntity } from './domain/entities/Practice.entity';
+import { GeminiService } from './application/services/gemini.service';
+import { GeminiAdapter } from './infrastructure/gemini/gemini.adapter';
+import { GeminiModule } from './application/modules/gemini.module';
 
 @Module({
   imports: [
@@ -32,6 +35,7 @@ import { PracticeEntity } from './domain/entities/Practice.entity';
     UserModule,
     QuestionModule,
     PracticeModule,
+    GeminiModule,
   ],
   controllers: [AppController],
   providers: [AppService],
