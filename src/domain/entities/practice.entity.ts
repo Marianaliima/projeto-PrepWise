@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { QuestionEntity } from './question.entity';
 
 @Entity('practice')
 export class PracticeEntity {
@@ -12,8 +13,12 @@ export class PracticeEntity {
   data: Date;
 
   @Column({ type: 'text', nullable: true })
-  feedback: string;
+  feedback?: string;
 
   @Column({ type: 'varchar', length: 20 })
-  status: string; 
+  status?: string;
+  @ManyToOne(() => QuestionEntity, (question) => question.practices, {
+    eager: true,
+  })
+  question: QuestionEntity;
 }

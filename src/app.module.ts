@@ -7,8 +7,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AccountEntity } from './domain/entities/account.entity';
 import { UserEntity } from './domain/entities/user.entity';
 import { UserModule } from './application/modules/user.module';
-import { QuestionModule } from './application/modules/question.module';
 import { QuestionEntity } from './domain/entities/question.entity';
+import { QuestionModule } from './application/modules/question.module';
+import { PracticeModule } from './application/modules/practice.module';
+import { PracticeEntity } from './domain/entities/Practice.entity';
 
 @Module({
   imports: [
@@ -21,15 +23,15 @@ import { QuestionEntity } from './domain/entities/question.entity';
         username: 'postgres',
         password: process.env.DB_PASSWORD,
         database: 'postgres',
-        synchronize: true,
+        synchronize: false,
         logging: false,
-        entities: [AccountEntity, UserEntity, QuestionEntity],
+        entities: [AccountEntity, UserEntity, QuestionEntity, PracticeEntity],
       }),
     }),
     AccountModule,
     UserModule,
-
     QuestionModule,
+    PracticeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

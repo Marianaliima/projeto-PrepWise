@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { GenericRepository } from './generic.repository';
 import { PracticeEntity } from 'src/domain/entities/Practice.entity';
-import { CreatePracticeDto } from 'src/interfaces/dtos/create-Practice.dto';
+import { CreatePracticeDto } from 'src/interfaces/dtos/practice.dto';
 
 @Injectable()
 export class PracticeORMRepository
@@ -14,7 +14,7 @@ export class PracticeORMRepository
     private PracticeRepository: Repository<PracticeEntity>,
   ) {}
 
-  async create(Practice: CreatePracticeDto): Promise<PracticeEntity> {
+  async create(Practice: PracticeEntity): Promise<PracticeEntity> {
     return this.PracticeRepository.save(Practice);
   }
 
@@ -39,7 +39,7 @@ export class PracticeORMRepository
     await this.PracticeRepository.delete(id);
   }
 
-  async save(Practice: CreatePracticeDto) {
+  async save(Practice) {
     return this.PracticeRepository.save(Practice);
   }
 }

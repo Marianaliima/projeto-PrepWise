@@ -28,7 +28,7 @@ export class AccountORMRepository implements GenericRepository<AccountEntity> {
     account: Partial<AccountEntity>,
   ): Promise<AccountEntity> {
     await this.accountRepository.update(id, account);
-    return this.findOne(id);
+    return this.findOne(id); 
   }
 
   async remove(id: string): Promise<void> {

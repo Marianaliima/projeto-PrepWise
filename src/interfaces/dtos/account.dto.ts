@@ -5,11 +5,11 @@ export class AccountDto {
   id: string;
 
   @Expose()
-  password: string;
+  password?: string;
 
   @Expose()
-  email: string;
+  email?: string;
 
   @Expose()
-  name: string;
+  name?: string;
 }

@@ -1,15 +1,35 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { PracticeEntity } from '../entities/practice.entity';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { PracticeORMRepository } from '../ports/practice.repository';
+import { PracticeEntity } from 'src/domain/entities/Practice.entity';
+import { CreatePracticeDto } from 'src/interfaces/dtos/practice.dto';
+import { QuestionORMRepository } from '../ports/question.repository';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class PracticeService {
-  constructor(private readonly practiceRepository: PracticeORMRepository) {}
+  constructor(
+    @Inject('PracticeRepository')
+    private readonly practiceRepository: PracticeORMRepository,
 
-  async createPractice(
-    practiceData: Partial<PracticeEntity>,
-  ): Promise<PracticeEntity> {
-    const practice = this.practiceRepository.create(practiceData);
+    @Inject('QuestionRepository')
+    private readonly questionRepository: QuestionORMRepository,
+  ) {}
+
+  async createPractice(practiceData: CreatePracticeDto) {
+    const question = await this.questionRepository.findOne(
+      practiceData?.question,
+    );
+    if (!question) {
+      throw new NotFoundException('Questão não encontrada.');
+    }
+
+    const practice = await this.practiceRepository.create({
+      id: uuidv4(),
+      solution: practiceData?.solution,
+      data: new Date(),
+      question: question,
+      status: 'Pending',
+    });
     return await this.practiceRepository.save(practice);
   }
 
@@ -29,13 +49,13 @@ export class PracticeService {
     id: string,
     practiceData: Partial<PracticeEntity>,
   ): Promise<PracticeEntity> {
-    await this.findPracticeById(id); 
+    await this.findPracticeById(id);
     await this.practiceRepository.update(id, practiceData);
-    return this.findPracticeById(id); 
+    return this.findPracticeById(id);
   }
 
   async deletePractice(id: string): Promise<void> {
     const practice = await this.findPracticeById(id);
-    await this.practiceRepository.remove(practice);
+    await this.practiceRepository.remove(practice?.id);
   }
 }

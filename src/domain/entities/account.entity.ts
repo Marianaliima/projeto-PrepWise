@@ -12,10 +12,13 @@ export class AccountEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column() 
-  password: string;
+  @Column()
+  createdAt: Date;
+  
+  @Column()
+  userId: string; 
 
   @OneToOne(() => UserEntity, (user) => user.account)
-  @JoinColumn({ name: 'login' })
+  @JoinColumn({ name: 'userId' }) 
   user: UserEntity;
 }
