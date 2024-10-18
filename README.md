@@ -18,7 +18,6 @@ A API **Prep Wise** é uma plataforma  que visa diminuir a lacuna da diversidade
 | `pg` |  Dependência que interage com o PostgreSQL para a conexão da database, criação de modelos e das tabelas|
 | `npm ou yarn` | Gerenciador de pacotes|
 | `amazon lightsail` | Serviço da AWS que oferece uma maneira simples e econômica de implantar e gerenciar servidores virtuais (instâncias) na nuvem, com recursos como armazenamento, redes e banco de dados, ideal para aplicações e sites de pequeno a médio porte|
-| 
  `Insomnia ou Postman` | Interface gráfica para realizar os testes|
 
 <br>
