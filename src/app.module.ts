@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { config } from 'dotenv';
 import { AccountModule } from './application/modules/account.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -15,6 +16,7 @@ import { GeminiService } from './application/services/gemini.service';
 import { GeminiAdapter } from './infrastructure/gemini/gemini.adapter';
 import { GeminiModule } from './application/modules/gemini.module';
 
+config();
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -24,7 +26,7 @@ import { GeminiModule } from './application/modules/gemini.module';
         host: 'localhost',
         port: 5432,
         username: 'postgres',
-        password: process.env.DB_PASSWORD,
+        password: String(process.env.DB_PASSWORD),
         database: 'postgres',
         synchronize: false,
         logging: false,
