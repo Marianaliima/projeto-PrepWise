@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { GenericRepository } from './generic.repository';
-import { PracticeEntity } from 'src/domain/entities/Practice.entity';
+import { PracticeEntity } from 'src/domain/entities/practice.entity';
 import { CreatePracticeDto } from 'src/interfaces/dtos/practice.dto';
 
 @Injectable()

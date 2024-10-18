@@ -1,5 +1,5 @@
 import { AccountEntity } from './src/domain/entities/account.entity';
-import { PracticeEntity } from './src/domain/entities/Practice.entity';
+import { PracticeEntity } from './src/domain/entities/practice.entity';
 import { QuestionEntity } from './src/domain/entities/question.entity';
 import { UserEntity } from './src/domain/entities/user.entity';
 import { DataSource } from 'typeorm';
@@ -14,5 +14,5 @@ export const AppDataSource = new DataSource({
   synchronize: false,
   logging: true,
   entities: [UserEntity, QuestionEntity, PracticeEntity, AccountEntity], 
-  migrations: ['src/migration/**/*.ts'],
+  migrations: ['src/migration/**/*{.ts,.js}'],
 });

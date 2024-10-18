@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { PracticeORMRepository } from '../ports/practice.repository';
-import { PracticeEntity } from 'src/domain/entities/Practice.entity';
+import { PracticeEntity } from 'src/domain/entities/practice.entity';
 import { CreatePracticeDto } from 'src/interfaces/dtos/practice.dto';
 import { QuestionORMRepository } from '../ports/question.repository';
 import { v4 as uuidv4 } from 'uuid';
