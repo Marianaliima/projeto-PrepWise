@@ -4,6 +4,9 @@ import { PracticeEntity } from './src/domain/entities/practice.entity';
 import { QuestionEntity } from './src/domain/entities/question.entity';
 import { UserEntity } from './src/domain/entities/user.entity';
 import { DataSource } from 'typeorm';
+import {CreateQuestionsAndPracticeTablests1729180467496 } from './src/migrations/1729180467496-CreateQuestionsAndPracticeTables';
+
+
 
 config();
 export const AppDataSource = new DataSource({
@@ -16,5 +19,5 @@ export const AppDataSource = new DataSource({
   synchronize: false,
   logging: false,
   entities: [UserEntity, QuestionEntity, PracticeEntity, AccountEntity], 
-  migrations: ['src/migration/**/*{.ts,.js}'],
+  migrations: [CreateQuestionsAndPracticeTablests1729180467496],
 });
