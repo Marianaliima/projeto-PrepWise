@@ -188,3 +188,7 @@ PrepWise
 }
 
 ````
+
+### Cobertura de testes:
+
+<img src="testeRep.jpg" alt="Cobertura de testes" width="300" />
