@@ -191,4 +191,4 @@ PrepWise
 
 ### Cobertura de testes:
 
-<img src="testeRep.jpg" alt="Cobertura de testes" width="300" />
+<img src="testeRep.png" alt="Cobertura de testes" width="300" />
