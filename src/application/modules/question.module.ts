@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { QuestionService } from '../services/question.service';
 import { QuestionController } from '../../adapters/controllers/question.controller';
-import { QuestionEntity } from 'src/domain/entities/question.entity';
+import { QuestionEntity } from '../../domain/entities/question.entity';
 import { QuestionORMRepository } from '../ports/question.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -9,8 +9,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   imports: [TypeOrmModule.forFeature([QuestionEntity])], 
   controllers: [QuestionController],
   providers: [
-    QuestionService, 
-    QuestionORMRepository, 
+    QuestionService,
+    QuestionORMRepository,
     { provide: 'QuestionRepository', useClass: QuestionORMRepository }
   ],
   exports: ['QuestionRepository'], 

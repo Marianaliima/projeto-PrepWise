@@ -20,5 +20,5 @@ export class AccountEntity {
 
   @OneToOne(() => UserEntity, (user) => user.account)
   @JoinColumn({ name: 'userId' }) 
-  user: UserEntity;
+  user?: UserEntity;
 }

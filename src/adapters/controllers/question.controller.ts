@@ -7,11 +7,11 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { QuestionService } from 'src/application/services/question.service';
+import { QuestionService } from '../../application/services/question.service';
 import {
   QuestionDto,
   UpdateQuestionDto,
-} from 'src/interfaces/dtos/question.dto';
+} from '../../interfaces/dtos/question.dto';
 
 @Controller('question')
 export class QuestionController {

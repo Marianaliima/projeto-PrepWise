@@ -13,6 +13,6 @@ export class QuestionDto {
 }
 
 export class UpdateQuestionDto {
-  descrption?: string;
+  description?: string;
   topic?: string;
 }

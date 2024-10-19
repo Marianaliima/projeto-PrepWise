@@ -1,4 +1,4 @@
 export class CreatePracticeDto {
   solution: string;
-  question:string
+  question: string;
 }

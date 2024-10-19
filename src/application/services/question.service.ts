@@ -8,7 +8,7 @@ import { isUUID } from 'class-validator';
 import {
   QuestionDto,
   UpdateQuestionDto,
-} from 'src/interfaces/dtos/question.dto';
+} from '../../interfaces/dtos/question.dto';
 import { QuestionORMRepository } from '../ports/question.repository';
 
 @Injectable()

@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { GenericRepository } from './generic.repository';
-import { UserEntity } from 'src/domain/entities/user.entity';
-import { CreateUserDto } from 'src/interfaces/dtos/create-user.dto';
+import { UserEntity } from '../../domain/entities/user.entity';
+import { CreateUserDto } from '../../interfaces/dtos/create-user.dto';
 
 @Injectable()
 export class UserORMRepository implements GenericRepository<UserEntity> {

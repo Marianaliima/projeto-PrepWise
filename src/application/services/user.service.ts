@@ -10,7 +10,7 @@ import {
   CreateUserDto,
   UpdateUserDto,
   UserDto,
-} from 'src/interfaces/dtos/user.dto';
+} from '../../interfaces/dtos/user.dto';
 import { v4 as uuidv4 } from 'uuid';
 import { isUUID } from 'class-validator';
 import { QueryFailedError } from 'typeorm';

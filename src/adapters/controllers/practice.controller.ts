@@ -7,9 +7,9 @@ import {
   Param,
   Body,
 } from '@nestjs/common';
-import { PracticeService } from 'src/application/services/practice.service';
-import { PracticeEntity } from 'src/domain/entities/practice.entity';
-import { CreatePracticeDto } from 'src/interfaces/dtos/practice.dto';
+import { PracticeService } from '../../application/services/practice.service';
+import { PracticeEntity } from '../../domain/entities/practice.entity';
+import { CreatePracticeDto } from '../../interfaces/dtos/practice.dto';
 
 
 @Controller('practice')

@@ -18,5 +18,5 @@ export class UserEntity {
 
   @OneToOne(() => AccountEntity, (account) => account.user)
   @Exclude() 
-  account: AccountEntity;
+  account?: AccountEntity;
 }

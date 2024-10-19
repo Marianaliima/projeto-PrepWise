@@ -6,10 +6,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
-import { CreateAccountDto } from 'src/interfaces/dtos/create-account.dto';
+import { CreateAccountDto } from '../../interfaces/dtos/create-account.dto';
 import { AccountORMRepository } from '../ports/account.repository';
 import { UserORMRepository } from '../ports/user.respository';
-import { AccountDto } from 'src/interfaces/dtos/account.dto';
+import { AccountDto } from '../../interfaces/dtos/account.dto';
 
 @Injectable()
 export class AccountService {
