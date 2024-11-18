@@ -16,7 +16,15 @@ export class PracticeService {
     @Inject('QuestionRepository')
     private readonly questionRepository: QuestionORMRepository,
   ) {}
-
+  cleanMarkdown(text: string): string {
+    const cleanedText = text
+      .replace(/\*\*(.*?)\*\*/g, '$1') 
+      .replace(/\*(.*?)\*/g, '$1') 
+      .replace(/(\r\n|\n|\r)/g, ' ') 
+      .replace(/[-*+•]/g, ''); 
+  
+    return cleanedText;
+  }
   async createPractice(practiceData: CreatePracticeDto) {
     const question = await this.questionRepository.findOne(
       practiceData?.question,
@@ -39,11 +47,12 @@ export class PracticeService {
         practiceData?.solution,
       );
       practice.status = 'processed';
-      practice.feedback = promptResponse; 
+      practice.feedback = promptResponse;
+  
       await this.practiceRepository.save(practice);
     } catch (error) {
       console.error('Erro ao processar o prompt:', error);
-      practice.status = 'error'; 
+      practice.status = 'error';
       await this.practiceRepository.save(practice);
     }
 

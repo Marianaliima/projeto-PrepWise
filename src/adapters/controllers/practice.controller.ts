@@ -6,21 +6,45 @@ import {
   Delete,
   Param,
   Body,
+  Res,
+  BadRequestException,
 } from '@nestjs/common';
-import { PracticeService } from 'src/application/services/practice.service';
-import { PracticeEntity } from 'src/domain/entities/practice.entity';
-import { CreatePracticeDto } from 'src/interfaces/dtos/practice.dto';
-
+import { PracticeService } from '../../application/services/practice.service';
+import { PracticeEntity } from '../../domain/entities/practice.entity';
+import { AudioGenerator } from '../../interfaces/audio-generator.interface';
+import { CreatePracticeDto } from '../../interfaces/dtos/practice.dto';
+import { GoogleCloudTextToSpeechAdapter } from 'src/infrastructure/texttospeech/texttospeech.adapter';
 
 @Controller('practice')
 export class PracticeController {
-  constructor(private readonly practiceService: PracticeService) {}
+  constructor(
+    private readonly practiceService: PracticeService,
+    private readonly audioGenerator: GoogleCloudTextToSpeechAdapter,
+  ) {}
 
   @Post()
   async create(
-    @Body() practiceData: CreatePracticeDto
-  ): Promise<PracticeEntity> {
-    return await this.practiceService.createPractice(practiceData);
+    @Body() practiceData: CreatePracticeDto,
+    @Res() response,
+  ): Promise<PracticeEntity | Response | BadRequestException> {
+    const practice = await this.practiceService.createPractice(practiceData);
+
+    if (!practice) {
+      return new BadRequestException('Erro ao criar a prática');
+    }
+
+    try {
+      const audioBuffer = await this.audioGenerator.generateAudio(
+        this.practiceService.cleanMarkdown(practice.feedback),
+      );
+      response.set('Content-Type', 'audio/mpeg');
+      response.send(audioBuffer);
+      return null; 
+    } catch (error) {
+      console.error(error);
+      response.status(500).send('Erro ao gerar o áudio');
+      return practice; 
+    }
   }
 
   @Get()

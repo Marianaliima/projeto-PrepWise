@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { AccountService } from 'src/application/services/account.service';
-import { AccountDto } from 'src/interfaces/dtos/account.dto';
+import { AccountService } from '../../application/services/account.service'; // Caminho relativo
+import { AccountDto } from '../../interfaces/dtos/account.dto';
 import { CreateAccountDto } from 'src/interfaces/dtos/create-account.dto';
 
 @Controller('account')
