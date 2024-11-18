@@ -7,7 +7,7 @@ import { PracticeORMRepository } from '../ports/practice.repository';
 import { QuestionORMRepository } from '../ports/question.repository';
 import { QuestionEntity } from 'src/domain/entities/question.entity';
 import { GeminiModule } from './gemini.module';
-
+import { GoogleCloudTextToSpeechAdapter } from 'src/infrastructure/texttospeech/texttospeech.adapter';
 @Module({
   imports: [
     TypeOrmModule.forFeature([PracticeEntity, QuestionEntity]),
@@ -18,6 +18,7 @@ import { GeminiModule } from './gemini.module';
     PracticeService,
     { provide: 'PracticeRepository', useClass: PracticeORMRepository },
     { provide: 'QuestionRepository', useClass: QuestionORMRepository },
+    GoogleCloudTextToSpeechAdapter,
   ],
 })
 export class PracticeModule {}

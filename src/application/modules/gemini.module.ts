@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { GeminiAdapter } from 'src/infrastructure/gemini/gemini.adapter';
+import { GeminiAdapter } from '../../infrastructure/gemini/gemini.adapter';
 import { GeminiService } from '../services/gemini.service';
 
 @Module({
